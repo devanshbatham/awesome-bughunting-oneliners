@@ -94,3 +94,15 @@ while read sub; do if host "$sub.example.com" &> /dev/null; then echo "$sub.exam
 ```
 assetfinder http://hackerone.com > recon.txt; for d in $(<recon.txt); do $(cutycapt --url=$d --out=$d.jpg --max-wait=100000); done
 ```
+
+## Note : 
+
+```
+These oneliners are collected from different sources , Credits to the respesctive authors
+```
+
+## Contribute : 
+
+```
+Open Pull requests
+```
