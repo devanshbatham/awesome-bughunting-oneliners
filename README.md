@@ -5,7 +5,7 @@
 
   
 
-##  Content Disvovery/Recon : 
+##  Content Discovery/Recon : 
 
   
 
