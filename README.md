@@ -20,14 +20,6 @@ curl -s https://dns.bufferover.run/dns?q=.example.com |jq -r .FDNS_A[]|cut -d','
 ```
 curl -s https://dns.bufferover.run/dns?q=.hackerone.com |jq -r .FDNS_A[]|cut -d',' -f2|sort -u
 ```
-
-```
-curl 'https:​//crt​.sh/?q=%.example​.com&output=json' | jq '.name_value' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u
-```
-
-```
-wget -q "https://crt.sh/?q=%.example.com&output=json" -O - | tr ":" "\n" | grep "min_cert_id" | cut -d "\"" -f 2 | sort | uniq
-```
   
 
 ###  3 . Using Certspotter
@@ -52,7 +44,7 @@ curl https://certspotter.com/api/v0/certs\?domain\=example.com | jq '.[].dns_nam
 ###  6 . Grab Titles of webpages 
 
 ```
-for i in $(cat Webservers.txt ); do echo "$i | $(curl --connect-timeout 0.5 $i -so - | grep -iPo '(?<=<title>)(.*)(?=</title>)')"; done | tee -a titles.txt
+for i in $(cat Webservers.txt ); do echo "$i | $(curl --connect-timeout 0.5 $i -so - | grep -iPo '(?<=<title>)(.*)(?=</title>)')"; done 
 ```
 
 ###  7 . Enumerate hosts from SSL Certificate 
@@ -82,13 +74,13 @@ curl -s "http://web.archive.org/cdx/search/cdx?url=*.hackerone.com/*&output=text
 ###  11 . Using ThreatCrowd
 
 ```
-curl -s "http://web.archive.org/cdx/search/cdx?url=*.hackerone.com/*&output=text&fl=original&collapse=urlkey" |sort| sed -e 's_https*://__' -e "s/\/.*//" -e 's/:.*//' -e 's/^www\.//' | uniq
+curl https://www.threatcrowd.org/searchApi/v2/domain/report/?domain=hackerone.com |jq .subdomains |grep -o '\w.*hackerone.com'
 ```
 
 ###  12 . Using Hackertarget
 
 ```
-curl https://api.hackertarget.com/hostsearch/\?q\=$1 | grep -o '\w.*$1'
+curl https://api.hackertarget.com/hostsearch/?q=hackerone.com | grep -o '\w.*hackerone.com'
 ```
 
 ###  13 . Bruteforce Subdomains
