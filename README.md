@@ -24,6 +24,10 @@ curl -s https://dns.bufferover.run/dns?q=.hackerone.com |jq -r .FDNS_A[]|cut -d'
 ```
 curl 'https:​//crt​.sh/?q=%.example​.com&output=json' | jq '.name_value' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u
 ```
+
+```
+wget -q "https://crt.sh/?q=%.example.com&output=json" -O - | tr ":" "\n" | grep "min_cert_id" | cut -d "\"" -f 2 | sort | uniq
+```
   
 
 ###  3 . Using Certspotter
@@ -93,3 +97,8 @@ curl https://api.hackertarget.com/hostsearch/\?q\=$1 | grep -o '\w.*$1'
 while read sub; do if host "$sub.example.com" &> /dev/null; then echo "$sub.example.com"; fi; done < wordslist.txt
 ```
 
+###  14 .  Assetfinder 
+
+```
+assetfinder http://hackerone.com > recon.txt; for d in $(<recon.txt); do $(cutycapt --url=$d --out=$d.jpg --max-wait=100000); done
+```
