@@ -95,6 +95,12 @@ while read sub; do if host "$sub.example.com" &> /dev/null; then echo "$sub.exam
 assetfinder http://hackerone.com > recon.txt; for d in $(<recon.txt); do $(cutycapt --url=$d --out=$d.jpg --max-wait=100000); done
 ```
 
+###  15 . Gauplus
+
+```
+gauplus -t 15 -random-agent -subs $DOMAIN | unfurl -u domains | anew subdomains.txt
+```
+
 ## Note : 
 
 ```
